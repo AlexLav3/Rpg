@@ -88,6 +88,17 @@ void ASPlayerCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
+void ASPlayerCharacter::HandleJump(const FInputActionValue& Value)
+{
+	Super::Jump(); 
+
+	if (JumpAnim)
+	{
+		UE_LOG(LogTemp, Log, TEXT("Playing Jump Animation"));
+		PlayAnimMontage(JumpAnim);
+	}
+}
+
 void ASPlayerCharacter::Run(const FInputActionValue& Value)
 {
 
@@ -124,7 +135,7 @@ void ASPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
 
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ASPlayerCharacter::HandleJump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASPlayerCharacter::Move);
@@ -171,11 +182,6 @@ void ASPlayerCharacter::Tick(float DeltaTime)
 
 	if (bIsRunning) {
 		StaminaChange(this, AttributesComp, AttributesComp->Stamina, DeltaTime);
-	}
-	
-	if (bPressedJump)
-	{
-		PlayAnimMontage(JumpAnim);
 	}
 }
 

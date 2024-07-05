@@ -63,19 +63,24 @@ public:
 
 protected:
 
-	/** Called for movement input */
+	UFUNCTION() /** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
-	/** Called for looking input */
+	UFUNCTION()/** Called for looking input */
 	void Look(const FInputActionValue& Value);
-
-	void Run(const FInputActionValue& Value);
-
+	UFUNCTION()
+	void Run(const FInputActionValue& Value); 
+	
+	UFUNCTION()
     void StopRunning(const FInputActionValue& Value);
 
 	FTimerHandle TimerHandle_EnableRunning;
 
+	UFUNCTION()
 	void EnableRunning();
+
+	UFUNCTION()
+   void HandleJump(const FInputActionValue& Value);
 
 	UPROPERTY(EditAnywhere, Category = "Jump")
 	UAnimMontage* JumpAnim;
@@ -86,6 +91,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+ 
 
 	bool bIsRunning;
 
