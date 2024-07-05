@@ -10,6 +10,7 @@
 #include "GameFramework/Controller.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "RAttributesComponent.h"
 #include "InputActionValue.h"
 
 // Sets default values
@@ -46,8 +47,11 @@ ASPlayerCharacter::ASPlayerCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
 
-	NormalWalkSpeed= 400.f;
+	AttributesComp = CreateDefaultSubobject<URAttributesComponent>(TEXT("AttributesComponent"));
 
+	NormalWalkSpeed= 400.f;
+	bCanRun = true;
+	bIsRunning = false;
 }
 
 void ASPlayerCharacter::Move(const FInputActionValue& Value)
@@ -86,8 +90,17 @@ void ASPlayerCharacter::Look(const FInputActionValue& Value)
 
 void ASPlayerCharacter::Run(const FInputActionValue& Value)
 {
-	GetCharacterMovement()->MaxWalkSpeed = 2011.f;
-	
+
+	if (bCanRun)
+	{
+		GetCharacterMovement()->MaxWalkSpeed = 2011.f;
+		bIsRunning = true;
+	}
+	else
+	{
+		StopRunning(FInputActionValue());
+	}
+
 }
 
 // Called when the game starts or when spawned
@@ -127,14 +140,50 @@ void ASPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		//UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
 }
+void ASPlayerCharacter::EnableRunning()
+{
+	AttributesComp->Stamina = 100; 
+	bCanRun = true; 
+	
+}
+
+void ASPlayerCharacter::StaminaChange(AActor* InstigatorActor, URAttributesComponent* OwningComp, float NewStamima, float DeltaTime)
+{
+   AttributesComp->ModifyStamina(-30.f * DeltaTime);
+
+	if (AttributesComp->Stamina <= 0)
+	{
+	bCanRun = false;
+	StopRunning(FInputActionValue());
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle_EnableRunning, this, &ASPlayerCharacter::EnableRunning, 5.f, false);
+	}
+
+}
+void ASPlayerCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	
+}
 // Called every frame
 void ASPlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (bIsRunning) {
+		StaminaChange(this, AttributesComp, AttributesComp->Stamina, DeltaTime);
+	}
+	
+	if (bPressedJump)
+	{
+		PlayAnimMontage(JumpAnim);
+	}
 }
 
+
 void ASPlayerCharacter::StopRunning(const FInputActionValue& Value)
-{
+{   
+	bIsRunning = false;
 	GetCharacterMovement()->MaxWalkSpeed = NormalWalkSpeed; // Reset to normal walk speed
+	
 }
+

@@ -11,9 +11,11 @@ class USpringArmComponent;
 class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
+class UAnimMontage;
 struct FInputActionValue;
 
 class UPInterfaceComponent;
+class URAttributesComponent;
 
 UCLASS()
 class FORPORTFOLIO1_API ASPlayerCharacter : public ACharacter
@@ -52,7 +54,7 @@ class FORPORTFOLIO1_API ASPlayerCharacter : public ACharacter
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* RunAction;
-
+	
 	float NormalWalkSpeed; 
 
 public:
@@ -71,6 +73,13 @@ protected:
 
     void StopRunning(const FInputActionValue& Value);
 
+	FTimerHandle TimerHandle_EnableRunning;
+
+	void EnableRunning();
+
+	UPROPERTY(EditAnywhere, Category = "Jump")
+	UAnimMontage* JumpAnim;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -78,8 +87,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
+	bool bIsRunning;
 
+	bool bCanRun;
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -87,5 +97,14 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	UFUNCTION()
+	void StaminaChange(AActor* InstigatorActor, URAttributesComponent* OwningComp, float NewStamima, float DeltaTime);
+
+	UFUNCTION()
+	virtual void PostInitializeComponents() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
+	URAttributesComponent* AttributesComp;
 
 };
