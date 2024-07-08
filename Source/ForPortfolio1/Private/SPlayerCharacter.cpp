@@ -48,6 +48,7 @@ ASPlayerCharacter::ASPlayerCharacter()
 	FollowCamera->bUsePawnControlRotation = false;
 
 	AttributesComp = CreateDefaultSubobject<URAttributesComponent>(TEXT("AttributesComponent"));
+	InteractionComp = CreateDefaultSubobject<URInteractComponent>(TEXT("InteractionComponent"));
 
 	NormalWalkSpeed= 400.f;
 	bCanRun = true;
@@ -145,7 +146,7 @@ void ASPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Started, this, &ASPlayerCharacter::Run);
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &ASPlayerCharacter::StopRunning);
 
-		EnhancedInputComponent->BindAction(SniffAction, ETriggerEvent::Completed, this, &ASPlayerCharacter::Sniff);
+		EnhancedInputComponent->BindAction(SniffAction, ETriggerEvent::Triggered, this, &ASPlayerCharacter::Sniff);
 
 	}
 	else
@@ -200,5 +201,8 @@ void ASPlayerCharacter::StopRunning(const FInputActionValue& Value)
 
 void ASPlayerCharacter::Sniff()
 {
-
+	if (InteractionComp)
+	{
+		InteractionComp->SniffInteract();
+	}
 }

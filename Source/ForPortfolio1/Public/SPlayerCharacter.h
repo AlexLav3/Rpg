@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "Logging/LogMacros.h"
 #include "GameFramework/Character.h"
+#include "RInteractComponent.h"
 #include "SPlayerCharacter.generated.h"
+
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -95,7 +97,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
- 
 
 	bool bIsRunning;
 
@@ -117,6 +118,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	URAttributesComponent* AttributesComp;
 
+	UPROPERTY(VisibleAnywhere)
+	URInteractComponent* InteractionComp;
+
+	// sniff for ambient, all potential tracks that are in "memory" 
 	UFUNCTION()
 	void Sniff(); 
 

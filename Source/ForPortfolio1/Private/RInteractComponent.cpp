@@ -1,8 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "RGameplayInterface.h"
-#include "DrawDebugHelpers.h" 
 #include "RInteractComponent.h"
+#include "DrawDebugHelpers.h" 
+#include "RGameplayInterface.h"
+
 
 // Sets default values for this component's properties
 URInteractComponent::URInteractComponent()
@@ -20,7 +21,7 @@ void URInteractComponent::SniffInteract()
 	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
 
 	AActor* MyOwner = GetOwner();
-
+	
 	FVector EyeLocation;
 	FRotator EyeRotation;
 
@@ -28,12 +29,12 @@ void URInteractComponent::SniffInteract()
 
 	FVector End = EyeLocation + (EyeRotation.Vector() * 1000);
 
-	//FHitResult Hit; 
-	//bool bBlockingHit = GetWorld()->LineTraceSingleByObjectType(Hit, EyeLocation, End, ObjectQueryParams);
-
 	TArray<FHitResult> Hits;
 
 	float Radius = 30.0f;
+
+	FCollisionQueryParams CollisionQueryParams;
+	CollisionQueryParams.AddIgnoredActor(MyOwner);
 
 	FCollisionShape Shape;
 	Shape.SetSphere(Radius);
@@ -56,6 +57,11 @@ void URInteractComponent::SniffInteract()
 			}
 		}
 	}
+	DrawDebugLine(GetWorld(), EyeLocation, End, LineColor, false, 2.0f, 0, 2.0f);
+
+	// Debugging: Draw the sphere for the sweep
+	DrawDebugSphere(GetWorld(), EyeLocation, Radius, 32, LineColor, false, 2.0f);
+	DrawDebugSphere(GetWorld(), End, Radius, 32, LineColor, false, 2.0f);
 }
 
 
