@@ -55,6 +55,9 @@ class FORPORTFOLIO1_API ASPlayerCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* RunAction;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* SniffAction;
+
 	float NormalWalkSpeed; 
 
 public:
@@ -113,5 +116,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Attributes")
 	URAttributesComponent* AttributesComp;
+
+	UFUNCTION()
+	void Sniff(); 
+
 
 };

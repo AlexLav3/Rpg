@@ -145,6 +145,8 @@ void ASPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Started, this, &ASPlayerCharacter::Run);
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &ASPlayerCharacter::StopRunning);
 
+		EnhancedInputComponent->BindAction(SniffAction, ETriggerEvent::Completed, this, &ASPlayerCharacter::Sniff);
+
 	}
 	else
 	{
@@ -175,6 +177,7 @@ void ASPlayerCharacter::PostInitializeComponents()
 	Super::PostInitializeComponents();
 	
 }
+
 // Called every frame
 void ASPlayerCharacter::Tick(float DeltaTime)
 {
@@ -193,3 +196,9 @@ void ASPlayerCharacter::StopRunning(const FInputActionValue& Value)
 	
 }
 
+//abilities: 
+
+void ASPlayerCharacter::Sniff()
+{
+
+}
