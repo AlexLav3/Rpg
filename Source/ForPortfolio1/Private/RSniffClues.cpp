@@ -19,7 +19,7 @@ ARSniffClues::ARSniffClues()
 	CapsuleComp->SetupAttachment(BaseMesh);
 
 	SetActorHiddenInGame(true);
-	SetActorEnableCollision(true);
+	SetActorEnableCollision(false);
 }
 
 // Called when the game starts or when spawned
@@ -32,13 +32,15 @@ void ARSniffClues::BeginPlay()
 void ARSniffClues::VisibilitySwitch()
 {
 	SetActorHiddenInGame(true);
+	
 }
 
 
 void ARSniffClues::Interact_Implementation(APawn* InstigatorPawn)
 {
-	SetActorHiddenInGame(true);
-	//GetWorld()->GetTimerManager().SetTimer(TimerHandle_Visibility, this, &ARSniffClues::VisibilitySwitch, 5.f, false);
+	SetActorHiddenInGame(false);
+
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle_Visibility, this, &ARSniffClues::VisibilitySwitch, 5.f, false);
 }
 
 // Called every frame
