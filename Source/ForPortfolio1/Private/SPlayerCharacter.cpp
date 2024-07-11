@@ -146,7 +146,7 @@ void ASPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Started, this, &ASPlayerCharacter::Run);
 		EnhancedInputComponent->BindAction(RunAction, ETriggerEvent::Completed, this, &ASPlayerCharacter::StopRunning);
 
-		EnhancedInputComponent->BindAction(SniffAction, ETriggerEvent::Triggered, this, &ASPlayerCharacter::Sniff);
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &ASPlayerCharacter::Interact);
 
 	}
 	else
@@ -197,12 +197,11 @@ void ASPlayerCharacter::StopRunning(const FInputActionValue& Value)
 	
 }
 
-//abilities: 
 
-void ASPlayerCharacter::Sniff()
+void ASPlayerCharacter::Interact()
 {
 	if (InteractionComp)
 	{
-		InteractionComp->SniffInteract();
+		InteractionComp->CheckInteract();
 	}
 }

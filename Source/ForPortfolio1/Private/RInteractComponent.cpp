@@ -15,7 +15,7 @@ URInteractComponent::URInteractComponent()
 	// ...
 }
 
-void URInteractComponent::SniffInteract()
+void URInteractComponent::CheckInteract()
 {
 	FCollisionObjectQueryParams ObjectQueryParams;
 	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
@@ -57,11 +57,12 @@ void URInteractComponent::SniffInteract()
 			}
 		}
 	}
-	DrawDebugLine(GetWorld(), EyeLocation, End, LineColor, false, 2.0f, 0, 2.0f);
+	//debug: 
+/*	DrawDebugLine(GetWorld(), EyeLocation, End, LineColor, false, 2.0f, 0, 2.0f);
 
 	// Debugging: Draw the sphere for the sweep
 	DrawDebugSphere(GetWorld(), EyeLocation, Radius, 32, LineColor, false, 2.0f);
-	DrawDebugSphere(GetWorld(), End, Radius, 32, LineColor, false, 2.0f);
+	DrawDebugSphere(GetWorld(), End, Radius, 32, LineColor, false, 2.0f);*/
 }
 
 

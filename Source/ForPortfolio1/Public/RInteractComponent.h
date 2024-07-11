@@ -18,7 +18,7 @@ public:
 
 public: 
 
-	void SniffInteract(); 
+	void CheckInteract();
 
 protected:
 	// Called when the game starts

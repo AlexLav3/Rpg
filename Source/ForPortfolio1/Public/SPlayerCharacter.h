@@ -2,10 +2,12 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Engine.h"
 #include "Logging/LogMacros.h"
 #include "GameFramework/Character.h"
 #include "RInteractComponent.h"
+#include "RItemsPickedUp.h"
+#include "RIntentoryController.h"
 #include "SPlayerCharacter.generated.h"
 
 
@@ -121,9 +123,8 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	URInteractComponent* InteractionComp;
 
-	// sniff for ambient, all potential tracks that are in "memory" 
 	UFUNCTION()
-	void Sniff(); 
+	void Interact(); 
 
 
 };
