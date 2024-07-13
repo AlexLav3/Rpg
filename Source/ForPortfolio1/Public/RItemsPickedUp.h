@@ -24,7 +24,6 @@ struct FORPORTFOLIO1_API FURItemsPickedUp : public FTableRowBase
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FText Name;
 
-
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     int32 Value;
 
