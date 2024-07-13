@@ -132,5 +132,7 @@ public:
 	UFUNCTION()
 	void Interact(); 
 
+	UFUNCTION()
+	void OpenInventory(); 
 
 };

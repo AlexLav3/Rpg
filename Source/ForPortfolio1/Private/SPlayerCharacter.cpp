@@ -148,6 +148,7 @@ void ASPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &ASPlayerCharacter::Interact);
 
+		EnhancedInputComponent->BindAction(ToggleInventoryAction, ETriggerEvent::Triggered, this, &ASPlayerCharacter::OpenInventory);
 	}
 	else
 	{
@@ -204,4 +205,8 @@ void ASPlayerCharacter::Interact()
 	{
 		InteractionComp->CheckInteract();
 	}
+}
+
+void ASPlayerCharacter::OpenInventory()
+{
 }

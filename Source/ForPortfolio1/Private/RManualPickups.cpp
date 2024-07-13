@@ -39,5 +39,6 @@ void ARManualPickups::Tick(float DeltaTime)
 
 void ARManualPickups::Interact_Implementation(APawn* InstigatorPawn)
 {
+	Destroy(); 
 }
 
