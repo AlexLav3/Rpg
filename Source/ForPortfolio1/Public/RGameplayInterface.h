@@ -24,5 +24,5 @@ class FORPORTFOLIO1_API IRGameplayInterface
 public:
 
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
-	void Interact(APawn* InstigatorPawn);
+	void Interact(APlayerController* Controller);
 };

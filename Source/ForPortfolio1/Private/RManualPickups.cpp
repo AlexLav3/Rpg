@@ -2,6 +2,8 @@
 
 
 #include "RManualPickups.h"
+#include "GameFramework/PlayerController.h"
+#include "RIntentoryController.h"
 
 // Sets default values
 ARManualPickups::ARManualPickups()
@@ -37,8 +39,17 @@ void ARManualPickups::Tick(float DeltaTime)
 
 }
 
-void ARManualPickups::Interact_Implementation(APawn* InstigatorPawn)
+void ARManualPickups::Interact_Implementation(APlayerController* Controller)
 {
-	Destroy(); 
+	ARIntentoryController* IController = Cast<ARIntentoryController>(Controller);
+
+	IController->AddItemToInventoryByID(ItemID); 
+	
+	Destroy();
+	
 }
 
+FName ARManualPickups::GetItemID()
+{
+	return ItemID;
+}

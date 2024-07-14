@@ -16,6 +16,8 @@ struct FORPORTFOLIO1_API FURItemsPickedUp : public FTableRowBase
 {
 	GENERATED_BODY()
 
+public: 
+
     FURItemsPickedUp(); 
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -35,10 +37,7 @@ struct FORPORTFOLIO1_API FURItemsPickedUp : public FTableRowBase
 
     bool operator==(const FURItemsPickedUp& OtherItem) const
     {
-        if (ItemID == OtherItem.ItemID) {
-            return true;
-        }
-        return false;
+        return ItemID == OtherItem.ItemID;
     }
     
 };

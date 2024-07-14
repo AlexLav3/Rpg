@@ -4,7 +4,6 @@
 #include "DrawDebugHelpers.h" 
 #include "RGameplayInterface.h"
 
-
 // Sets default values for this component's properties
 URInteractComponent::URInteractComponent()
 {
@@ -43,7 +42,9 @@ void URInteractComponent::CheckInteract()
 
 	FColor LineColor = bBlockingHit ? FColor::Green : FColor::Red;
 
-	for (FHitResult Hit : Hits)
+	TArray<AActor*> OverlappingActors;
+
+	for (const FHitResult Hit : Hits)
 	{
 		AActor* HitActor = Hit.GetActor();
 
@@ -52,8 +53,8 @@ void URInteractComponent::CheckInteract()
 			if (HitActor->Implements<URGameplayInterface>())
 			{
 				APawn* MyPawn = Cast<APawn>(MyOwner);
-				IRGameplayInterface::Execute_Interact(HitActor, MyPawn);
-				break;
+				IRGameplayInterface::Execute_Interact(HitActor, GetWorld()->GetFirstPlayerController());
+				break; // Exit after first interaction
 			}
 		}
 	}

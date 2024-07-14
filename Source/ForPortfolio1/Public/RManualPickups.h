@@ -13,7 +13,7 @@ class UStaticMeshComponent;
 class UCapsuleComponent; 
 
 UCLASS()
-class FORPORTFOLIO1_API ARManualPickups : public AActor, public IRGameplayInterface
+class FORPORTFOLIO1_API ARManualPickups : public AActor , public IRGameplayInterface 
 {
 	GENERATED_BODY()
 	
@@ -39,12 +39,14 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-	void Interact_Implementation(APawn* InstigatorPawn);
+	void Interact_Implementation(APlayerController* Controller);
 
 	UPROPERTY(EditDefaultsOnly)
 	FString Name;
 
 	UPROPERTY(EditDefaultsOnly)
 	FString Action;
+
+	FName GetItemID();
 
 };

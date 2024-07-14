@@ -2,7 +2,7 @@
 
 #include "RSniffClues.h"
 #include "Components/CapsuleComponent.h"
-#include "Engine/NavigationObjectBase.h"
+#include "GameFramework/PlayerController.h"
 
 
 // Sets default values
@@ -36,8 +36,12 @@ void ARSniffClues::VisibilitySwitch()
 }
 
 
-void ARSniffClues::Interact_Implementation(APawn* InstigatorPawn)
+void ARSniffClues::Interact_Implementation(APlayerController* Controller)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Interact_Implementation called"));
+
+	ARIntentoryController* IController = Cast<ARIntentoryController>(Controller);
+
 	SetActorHiddenInGame(false);
 
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle_Visibility, this, &ARSniffClues::VisibilitySwitch, 5.f, false);

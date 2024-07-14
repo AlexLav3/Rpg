@@ -39,8 +39,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     int32 InventorySlotLimit;
 
+   void Interact();
+
 protected: 
 
-    void Interact();
+ 
 
 };

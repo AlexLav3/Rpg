@@ -2,10 +2,11 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Engine.h"
 #include "GameFramework/Actor.h"
 #include "SPlayerCharacter.h"
 #include "RInteractComponent.h"
+#include "RIntentoryController.h"
 #include "RGameplayInterface.h"
 #include "RSniffClues.generated.h"
 
@@ -27,8 +28,8 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UCapsuleComponent* CapsuleComp;
 
-	UFUNCTION()
-	void Interact_Implementation(APawn* InstigatorPawn);
+UFUNCTION()
+virtual void Interact_Implementation(APlayerController* Controller) override;
 
 protected:
 	// Called when the game starts or when spawned

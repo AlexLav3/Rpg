@@ -16,14 +16,14 @@ bool ARIntentoryController::AddItemToInventoryByID(FName ID)
 {
     ARInventoryDatabaseGameState* GameState = Cast<ARInventoryDatabaseGameState>(GetWorld()->GetGameState());
     UDataTable* ItemTable = GameState->GetItemDB();
-    FURItemsPickedUp* ItemToAdd = ItemTable->FindRow<FURItemsPickedUp>(ID, "");
+    FURItemsPickedUp* ItemToAdd = ItemTable->FindRow<FURItemsPickedUp>(ID, TEXT("AddItemToInventoryByID"));
 
     if (ItemToAdd)
     {
         if (Inventory.Num() < InventorySlotLimit) {
             return true;
         }
-
+        ReloadInventory();
     }
         return false;
 
