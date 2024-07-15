@@ -29,7 +29,7 @@ public:
 	UCapsuleComponent* CapsuleComp;
 
 UFUNCTION()
-virtual void Interact_Implementation(APlayerController* Controller) override;
+ void Interact_Implementation(APlayerController* Controller) override;
 
 protected:
 	// Called when the game starts or when spawned

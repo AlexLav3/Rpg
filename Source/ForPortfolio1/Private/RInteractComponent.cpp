@@ -42,8 +42,6 @@ void URInteractComponent::CheckInteract()
 
 	FColor LineColor = bBlockingHit ? FColor::Green : FColor::Red;
 
-	TArray<AActor*> OverlappingActors;
-
 	for (const FHitResult Hit : Hits)
 	{
 		AActor* HitActor = Hit.GetActor();
@@ -52,18 +50,17 @@ void URInteractComponent::CheckInteract()
 		{
 			if (HitActor->Implements<URGameplayInterface>())
 			{
-				APawn* MyPawn = Cast<APawn>(MyOwner);
 				IRGameplayInterface::Execute_Interact(HitActor, GetWorld()->GetFirstPlayerController());
 				break; // Exit after first interaction
 			}
 		}
 	}
 	//debug: 
-/*	DrawDebugLine(GetWorld(), EyeLocation, End, LineColor, false, 2.0f, 0, 2.0f);
-
-	// Debugging: Draw the sphere for the sweep
+    DrawDebugLine(GetWorld(), EyeLocation, End, LineColor, false, 2.0f, 0, 2.0f);
+	
+	//Debugging: Draw the sphere for the sweep
 	DrawDebugSphere(GetWorld(), EyeLocation, Radius, 32, LineColor, false, 2.0f);
-	DrawDebugSphere(GetWorld(), End, Radius, 32, LineColor, false, 2.0f);*/
+	DrawDebugSphere(GetWorld(), End, Radius, 32, LineColor, false, 2.0f);
 }
 
 

@@ -18,8 +18,13 @@ ARSniffClues::ARSniffClues()
 
 	CapsuleComp->SetupAttachment(BaseMesh);
 
-	SetActorHiddenInGame(true);
-	SetActorEnableCollision(false);
+
+	CapsuleComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	CapsuleComp->SetCollisionResponseToAllChannels(ECR_Overlap);
+	CapsuleComp->SetGenerateOverlapEvents(true);
+	BaseMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	BaseMesh->SetCollisionResponseToChannel(ECC_Camera, ECR_Overlap);
+
 }
 
 // Called when the game starts or when spawned
@@ -27,7 +32,12 @@ void ARSniffClues::BeginPlay()
 {
 	Super::BeginPlay();
 
+	SetActorHiddenInGame(true);
+	SetActorEnableCollision(true);
+  
 }
+
+
 
 void ARSniffClues::VisibilitySwitch()
 {
