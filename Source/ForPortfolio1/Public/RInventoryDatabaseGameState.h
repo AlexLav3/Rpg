@@ -19,6 +19,8 @@ class FORPORTFOLIO1_API ARInventoryDatabaseGameState : public AGameStateBase
 
 public: 
 
+	UFUNCTION(BlueprintCallable)
+
 	UDataTable* GetItemDB() const;
 
 	UPROPERTY(EditDefaultsOnly)

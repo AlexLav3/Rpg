@@ -5,7 +5,7 @@
 
 FURItemsPickedUp::FURItemsPickedUp()
 {
-    this->Name = FText::FromString("No Name");
+    this->Name = FText::FromString("Unknown Item");
     this->Value = 1;
     this->Description = FText::FromString("No Description");
 }
