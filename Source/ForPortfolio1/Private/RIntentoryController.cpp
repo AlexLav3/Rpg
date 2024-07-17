@@ -16,7 +16,7 @@ bool ARIntentoryController::AddItemToInventoryByID(FName ID)
 {
     ARInventoryDatabaseGameState* GameState = Cast<ARInventoryDatabaseGameState>(GetWorld()->GetGameState());
     UDataTable* ItemTable = GameState->GetItemDB();
-    FURItemsPickedUp* ItemToAdd = ItemTable->FindRow<FURItemsPickedUp>(ID, TEXT("AddItemToInventoryByID"));
+    FURItemsPickedUp* ItemToAdd = ItemTable->FindRow<FURItemsPickedUp>(ID, "");
 
     if (ItemToAdd)
     {

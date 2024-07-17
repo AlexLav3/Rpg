@@ -21,8 +21,8 @@ ARManualPickups::ARManualPickups()
 
     ItemID = FName("No ID");
 
-	Name = "Item";
-	Action = "pickup";
+	Name = "Interactable";
+	Action = "interact";
 }
 
 // Called when the game starts or when spawned
