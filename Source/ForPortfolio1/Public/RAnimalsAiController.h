@@ -5,7 +5,10 @@
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "Perception/AIPerceptionTypes.h"
+#include <Kismet/GameplayStatics.h>
 #include "RAnimalsAiController.generated.h"
+
+class UBehaviorTree;
 
 UCLASS()
 class FORPORTFOLIO1_API ARAnimalsAiController : public AAIController
@@ -20,6 +23,9 @@ protected:
 
     virtual void Tick(float DeltaSeconds) override;
 
+    UPROPERTY(EditDefaultsOnly, Category = "Bt")
+    UBehaviorTree* BehaviourTree;
+
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
     class UAIPerceptionComponent* AIPerceptionComponent;
 
@@ -30,6 +36,7 @@ protected:
     void OnPawnDetected(const TArray<AActor*>& DetectedPawns);
 
     FVector PlayerLocation;
+
 
 private:
     ACharacter* PlayerCharacter;
