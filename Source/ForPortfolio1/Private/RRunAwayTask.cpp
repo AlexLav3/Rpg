@@ -9,6 +9,9 @@
 
 UBTTask_RunAway::UBTTask_RunAway()
 {
+    bNotifyTick = true;
+    bNotifyTaskFinished = true;
+    bCreateNodeInstance = false;
     NodeName = TEXT("Run Away");
 }
 

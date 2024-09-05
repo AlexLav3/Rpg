@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "Perception/AIPerceptionTypes.h"
 #include <Kismet/GameplayStatics.h>
 #include "RAnimalsAiController.generated.h"
 
@@ -26,18 +25,14 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Bt")
     UBehaviorTree* BehaviourTree;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
-    class UAIPerceptionComponent* AIPerceptionComponent;
-
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
-    class UAISenseConfig_Sight* SightConfig;
 
     UFUNCTION()
-    void OnPawnDetected(const TArray<AActor*>& DetectedPawns);
+    void OnPawnDetected();
 
     FVector PlayerLocation;
-
+    FVector RandomTargetLocation;
+    float SearchRadius = 500;
 
 private:
-    ACharacter* PlayerCharacter;
+    APawn* PlayerCharacter;
 };
